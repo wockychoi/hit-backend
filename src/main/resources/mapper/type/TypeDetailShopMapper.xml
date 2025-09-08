@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.type.TypeDetailShopMapper">
+<mapper namespace="com.mapago.mapper.type.TypeDetailShopMapper">
 
-    <resultMap id="ShopResultMap" type="com.hit.model.shop.Shop">
+    <resultMap id="ShopResultMap" type="com.mapago.model.shop.Shop">
         <id property="shopId" column="shop_id"/>
         <result property="shopNm" column="shop_nm"/>
         <result property="shopTitle" column="shop_title"/>
@@ -16,12 +16,12 @@
 
     </resultMap>
 
-    <resultMap id="TypeDetailShopResultMap" type="com.hit.model.type.TypeDetailShop">
+    <resultMap id="TypeDetailShopResultMap" type="com.mapago.model.type.TypeDetailShop">
         <id property="typeDetailShopId" column="type_detail_shop_id"/>
         <result property="typeDetailId" column="shop_type_detail_id"/>
         <result property="dispOrd" column="shop_disp_ord"/>
 
-        <association property="shop" javaType="com.hit.model.shop.Shop" resultMap="ShopResultMap"/>
+        <association property="shop" javaType="com.mapago.model.shop.Shop" resultMap="ShopResultMap"/>
     </resultMap>
 
     <select id="findTypeDetailShopListWithInfos" resultMap="TypeDetailShopResultMap">
@@ -54,7 +54,7 @@
         ORDER BY A.DISP_ORD
     </select>
 
-    <insert id="insertTypeDetailShop" parameterType="com.hit.model.type.TypeDetailShop" useGeneratedKeys="true"
+    <insert id="insertTypeDetailShop" parameterType="com.mapago.model.type.TypeDetailShop" useGeneratedKeys="true"
             keyProperty="typeDetailShopId">
         INSERT INTO TB_TYPE_DETAIL_SHOP (TYPE_DETAIL_ID, SHOP_ID, DISP_ORD, CRE_ID, UPD_ID)
         VALUES (
@@ -66,12 +66,12 @@
         )
     </insert>
 
-    <delete id="deleteTypeDetailShop" parameterType="com.hit.model.type.TypeDetailShop">
+    <delete id="deleteTypeDetailShop" parameterType="com.mapago.model.type.TypeDetailShop">
         DELETE FROM TB_TYPE_DETAIL_SHOP
         WHERE TYPE_DETAIL_SHOP_ID = #{typeDetailShopId}
     </delete>
 
-    <update id="sortTypeDetailShop" parameterType="com.hit.model.type.TypeDetailShop" useGeneratedKeys="true"
+    <update id="sortTypeDetailShop" parameterType="com.mapago.model.type.TypeDetailShop" useGeneratedKeys="true"
             keyProperty="typeDetailShopId">
         UPDATE TB_TYPE_DETAIL_SHOP
         SET
@@ -80,7 +80,7 @@
         WHERE TYPE_DETAIL_SHOP_ID = #{typeDetailShopId}
     </update>
 
-    <resultMap id="displayTypeDetailResultMap" type="com.hit.model.type.TypeDetailShop">
+    <resultMap id="displayTypeDetailResultMap" type="com.mapago.model.type.TypeDetailShop">
         <id property="typeDetailId" column="TYPE_DETAIL_ID"/>
         <result property="typeId" column="TYPE_ID"/>
         <result property="typeDetailShopId" column="TYPE_DETAIL_SHOP_ID"/>

@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.commonCode.CommonCodeMapper">
+<mapper namespace="com.mapago.mapper.commonCode.CommonCodeMapper">
 
-    <select id="findCommonCodeList" parameterType="com.hit.model.commonCode.CommonCode"
-            resultType="com.hit.model.commonCode.CommonCode">
+    <select id="findCommonCodeList" parameterType="com.mapago.model.commonCode.CommonCode"
+            resultType="com.mapago.model.commonCode.CommonCode">
         SELECT
         A.CODE_GRP,
         A.CODE,
@@ -27,7 +27,7 @@
         ORDER BY DISP_ORD
     </select>
 
-    <insert id="insertCommonCode" parameterType="com.hit.model.commonCode.CommonCode" useGeneratedKeys="true"
+    <insert id="insertCommonCode" parameterType="com.mapago.model.commonCode.CommonCode" useGeneratedKeys="true"
             keyProperty="commonCodeId">
         INSERT INTO TB_COMMON_CODE (CODE_GRP, CODE, CODE_NM, DISP_ORD, CRE_ID, UPD_ID)
         VALUES(
@@ -40,7 +40,7 @@
         )
     </insert>
 
-    <update id="updateCommonCode" parameterType="com.hit.model.commonCode.CommonCode" useGeneratedKeys="true"
+    <update id="updateCommonCode" parameterType="com.mapago.model.commonCode.CommonCode" useGeneratedKeys="true"
             keyProperty="commonCodeId">
         UPDATE TB_COMMON_CODE
         SET
@@ -49,13 +49,13 @@
         WHERE CODE = #{code}
     </update>
 
-    <delete id="deleteCommonCode" parameterType="com.hit.model.commonCode.CommonCode">
+    <delete id="deleteCommonCode" parameterType="com.mapago.model.commonCode.CommonCode">
         DELETE FROM TB_COMMON_CODE
         WHERE CODE = #{code}
     </delete>
 
 
-    <update id="sortCommonCode" parameterType="com.hit.model.commonCode.CommonCode" useGeneratedKeys="true"
+    <update id="sortCommonCode" parameterType="com.mapago.model.commonCode.CommonCode" useGeneratedKeys="true"
             keyProperty="commonCodeId">
         UPDATE TB_COMMON_CODE
         SET

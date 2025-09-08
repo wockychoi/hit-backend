@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.shop.ShopMapper">
+<mapper namespace="com.mapago.mapper.shop.ShopMapper">
 
-    <resultMap id="ShopResultMap" type="com.hit.model.shop.Shop">
+    <resultMap id="ShopResultMap" type="com.mapago.model.shop.Shop">
         <id property="shopId" column="SHOP_ID"/>
         <result property="shopNm" column="SHOP_NM"/>
         <result property="shopTitle" column="SHOP_TITLE"/>
@@ -35,8 +35,8 @@
         <result property="womanOnly" column="WOMAN_ONLY"/>
         <result property="commentIdList" column="COMMENT_ID_LIST"/>
         <result property="refreshDt" column="REFRESH_DT"/>
-        <collection property="fileList" ofType="com.hit.model.file.File" column="file_id_list"
-                    select="com.hit.mapper.file.FileMapper.selectFilesByFileIds"/>
+        <collection property="fileList" ofType="com.mapago.model.file.File" column="file_id_list"
+                    select="com.mapago.mapper.file.FileMapper.selectFilesByFileIds"/>
     </resultMap>
 
     <select id="findShopList" resultMap="ShopResultMap">
@@ -153,7 +153,7 @@
         WHERE A.SHOP_ID = #{shopId}
     </select>
 
-    <select id="findShopListAll" resultType="com.hit.model.shop.Shop">
+    <select id="findShopListAll" resultType="com.mapago.model.shop.Shop">
         SELECT
         A.SHOP_ID,
         A.SHOP_NM,
@@ -196,7 +196,7 @@
         ORDER BY A.SHOP_ID ASC
     </select>
 
-    <insert id="insertShop" parameterType="com.hit.model.shop.Shop" useGeneratedKeys="true" keyProperty="shopId">
+    <insert id="insertShop" parameterType="com.mapago.model.shop.Shop" useGeneratedKeys="true" keyProperty="shopId">
         INSERT INTO TB_SHOP (SHOP_NM, SHOP_TITLE, CONTENT, AREA_PROVINCE_ID, AREA_CITY_ID, AREA_STREET_ID, SHOP_TYPE,
         PHONE_NUM, ADDRESS,
         DTL_ADDRESS, OPERATION_TIME, EMAIL, VIEW_CNT, LIKE_CNT, CLOSE_YN, ONE_OWNER_YN, MAN_ONLY_YN, WOMAN_ONLY_YN,
@@ -228,7 +228,7 @@
         )
     </insert>
 
-    <update id="updateShopFileIdList" parameterType="com.hit.model.shop.Shop" useGeneratedKeys="true"
+    <update id="updateShopFileIdList" parameterType="com.mapago.model.shop.Shop" useGeneratedKeys="true"
             keyProperty="shopId">
         UPDATE TB_SHOP
         SET
@@ -238,7 +238,7 @@
         WHERE SHOP_ID = #{shopId}
     </update>
 
-    <update id="updateShop" parameterType="com.hit.model.shop.Shop" useGeneratedKeys="true" keyProperty="shopId">
+    <update id="updateShop" parameterType="com.mapago.model.shop.Shop" useGeneratedKeys="true" keyProperty="shopId">
         UPDATE TB_SHOP
         SET
         SHOP_NM = #{shopNm},
@@ -267,7 +267,7 @@
         WHERE SHOP_ID = #{shopId}
     </update>
 
-    <update id="deleteShop" parameterType="com.hit.model.shop.Shop">
+    <update id="deleteShop" parameterType="com.mapago.model.shop.Shop">
         UPDATE TB_SHOP A
         SET
         A.USE_YN = 'N',
@@ -276,7 +276,7 @@
         WHERE A.SHOP_ID = #{shopId}
     </update>
 
-    <update id="sortShopFileList" parameterType="com.hit.model.shop.Shop" useGeneratedKeys="true"
+    <update id="sortShopFileList" parameterType="com.mapago.model.shop.Shop" useGeneratedKeys="true"
             keyProperty="shopId">
         UPDATE TB_SHOP
         SET
@@ -286,7 +286,7 @@
         WHERE SHOP_ID = #{shopId}
     </update>
 
-    <update id="shopBizCall" parameterType="com.hit.model.shop.Shop" useGeneratedKeys="true"
+    <update id="shopBizCall" parameterType="com.mapago.model.shop.Shop" useGeneratedKeys="true"
             keyProperty="shopId">
         UPDATE TB_SHOP
         SET
@@ -294,7 +294,7 @@
         WHERE SHOP_ID = #{shopId}
     </update>
 
-    <select id="findOwnerShopList" resultType="com.hit.model.shop.Shop">
+    <select id="findOwnerShopList" resultType="com.mapago.model.shop.Shop">
         SELECT
         A.SHOP_ID,
         A.SHOP_NM,
@@ -305,7 +305,7 @@
         ORDER BY A.SHOP_ID ASC
     </select>
 
-    <update id="updateRefreshDt" parameterType="com.hit.model.shop.Shop">
+    <update id="updateRefreshDt" parameterType="com.mapago.model.shop.Shop">
         UPDATE TB_SHOP
         SET
         REFRESH_DT = NOW(),

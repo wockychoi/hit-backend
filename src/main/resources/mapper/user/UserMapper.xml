@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.user.UserMapper">
+<mapper namespace="com.mapago.mapper.user.UserMapper">
 
-    <select id="findAuth" parameterType="String" resultType="com.hit.model.user.User">
+    <select id="findAuth" parameterType="String" resultType="com.mapago.model.user.User">
         SELECT U.USER_ID
         ,U.PASSWORD
         ,U.USE_YN
@@ -13,18 +13,14 @@
         WHERE U.USER_ID = #{userId}
     </select>
 
-    <select id="findByUserId" parameterType="String" resultType="com.hit.model.user.User">
+    <select id="findByUserId" parameterType="String" resultType="com.mapago.model.user.User">
         SELECT
         U.*
-        ,B.POINT_BALANCE
-        ,B.POST_KEY
         FROM TB_USER U
-        INNER JOIN TB_POINT_WALLET B
-        ON U.USER_ID = B.USER_ID
         WHERE U.USER_ID = #{userId}
     </select>
 
-    <select id="findByNickname" parameterType="String" resultType="com.hit.model.user.User">
+    <select id="findByNickname" parameterType="String" resultType="com.mapago.model.user.User">
         SELECT
         U.USER_ID,
         U.USER_NM,
@@ -50,7 +46,7 @@
         WHERE U.USER_ID = #{userId}
     </select>
 
-    <select id="getUserList" resultType="com.hit.model.user.User">
+    <select id="getUserList" resultType="com.mapago.model.user.User">
         SELECT A.USER_ID,
         A.USER_NM,
         A.PASSWORD,
@@ -59,28 +55,26 @@
         A.PHONE_NUMBER,
         A.USE_YN,
         A.RECOMMENDER_ID,
-        B.POINT_BALANCE
+        A.ROLE_ID
         FROM TB_USER A
-        INNER JOIN TB_POINT_WALLET B
-        ON A.USER_ID = B.USER_ID
         ORDER BY CRE_DT, USE_YN DESC
     </select>
 
-    <update id="updateUser" parameterType="com.hit.model.user.User">
+    <update id="updateUser" parameterType="com.mapago.model.user.User">
         UPDATE TB_USER
         SET
-        USE_YN = #{useYn}
+        role_id = #{roleId}
         WHERE USER_ID = #{userId};
     </update>
 
-    <update id="updatePointUser" parameterType="com.hit.model.user.User">
+    <update id="updatePointUser" parameterType="com.mapago.model.user.User">
         UPDATE TB_POINT_WALLET
         SET
         POINT_BALANCE = #{pointBalance}
         WHERE USER_ID = #{userId};
     </update>
 
-    <insert id="insertUser" parameterType="com.hit.model.user.User" useGeneratedKeys="true" keyProperty="userId">
+    <insert id="insertUser" parameterType="com.mapago.model.user.User" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO TB_USER (USER_ID, USER_NM, PASSWORD, EMAIL, PHONE_NUMBER, RECOMMENDER_ID, USE_YN ,CRE_DT,
         CRE_ID,UPD_ID)
         VALUES(
@@ -97,7 +91,7 @@
         )
     </insert>
 
-    <insert id="insertWallet" parameterType="com.hit.model.user.User" useGeneratedKeys="true" keyProperty="userId">
+    <insert id="insertWallet" parameterType="com.mapago.model.user.User" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO TB_POINT_WALLET (USER_ID, POINT_BALANCE)
         VALUES(
         #{userId},
@@ -105,17 +99,17 @@
         )
     </insert>
 
-    <insert id="insertUserRole" parameterType="com.hit.model.user.User" useGeneratedKeys="true">
+    <insert id="insertUserRole" parameterType="com.mapago.model.user.User" useGeneratedKeys="true">
         INSERT INTO TB_USER_ROLE (USER_ID, ROLE_ID, CRE_ID, UPD_ID)
         VALUES(
         #{userId},
-        (SELECT B.ROLE_ID FROM TB_ROLE B WHERE B.ROLE_NAME = #{roleName}),
+        '1',
         CASE WHEN #{creId} IS NOT NULL AND #{creId} != '' THEN #{creId} ELSE #{userId} END,
         CASE WHEN #{updId} IS NOT NULL AND #{updId} != '' THEN #{updId} ELSE #{userId} END
         )
     </insert>
 
-    <insert id="insertPostingLog" parameterType="com.hit.model.user.PostingLog">
+    <insert id="insertPostingLog" parameterType="com.mapago.model.user.PostingLog">
         INSERT INTO TB_POST_LOG (USER_ID, BLOG_ACCOUNT_ID, TITLE, STATUS, CREATED_AT)
         VALUES(
         #{userId},
@@ -126,7 +120,7 @@
         )
     </insert>
 
-    <insert id="insertPointlog" parameterType="com.hit.model.user.PostingLog">
+    <insert id="insertPointlog" parameterType="com.mapago.model.user.PostingLog">
         INSERT INTO TB_POINT_HISTORY (USER_ID, AMOUNT, TYPE, DESCRIPTION, CREATED_AT)
         VALUES(
         #{userId},
@@ -137,14 +131,14 @@
         )
     </insert>
 
-    <update id="updatePointWallet" parameterType="com.hit.model.user.User">
+    <update id="updatePointWallet" parameterType="com.mapago.model.user.User">
         UPDATE TB_POINT_WALLET
         SET POINT_BALANCE = POINT_BALANCE + CAST(#{deductPoint} AS SIGNED)
         WHERE user_id = #{userId}
         AND POINT_BALANCE + CAST(#{deductPoint} AS SIGNED) >= 0
     </update>
 
-    <update id="savePostKey" parameterType="com.hit.model.user.User">
+    <update id="savePostKey" parameterType="com.mapago.model.user.User">
         UPDATE TB_POINT_WALLET
         SET
         POST_KEY = #{postKey}

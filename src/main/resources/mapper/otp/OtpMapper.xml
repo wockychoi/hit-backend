@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.otp.OtpMapper">
+<mapper namespace="com.mapago.mapper.otp.OtpMapper">
 
-    <select id="findOtp" resultType="com.hit.model.otp.Otp">
+    <select id="findOtp" resultType="com.mapago.model.otp.Otp">
         SELECT
         OTP_ID,
         OTP_VALUE,
@@ -16,7 +16,7 @@
         WHERE OTP_ID = #{otpId}
     </select>
 
-    <insert id="insertOtp" parameterType="com.hit.model.otp.Otp" useGeneratedKeys="true" keyProperty="otpId">
+    <insert id="insertOtp" parameterType="com.mapago.model.otp.Otp" useGeneratedKeys="true" keyProperty="otpId">
         INSERT INTO TB_OTP (OTP_VALUE, OBJ_ID, CRE_ID, UPD_ID)
         VALUES (
         #{otpValue},
@@ -26,7 +26,7 @@
         )
     </insert>
 
-    <update id="updateOtpConfirmYn" parameterType="com.hit.model.otp.Otp">
+    <update id="updateOtpConfirmYn" parameterType="com.mapago.model.otp.Otp">
         UPDATE TB_OTP
         SET
         CONFIRM_YN = #{confirmYn},

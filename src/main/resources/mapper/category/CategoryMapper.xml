@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.category.CategoryMapper">
+<mapper namespace="com.mapago.mapper.category.CategoryMapper">
 
-    <select id="findCategoryList" parameterType="com.hit.model.category.Category"
-            resultType="com.hit.model.category.Category">
+    <select id="findCategoryList" parameterType="com.mapago.model.category.Category"
+            resultType="com.mapago.model.category.Category">
         SELECT
         A.CATEGORY_ID,
         A.CATEGORY_NM,
@@ -26,7 +26,7 @@
         ORDER BY A.DISP_ORD
     </select>
 
-    <insert id="insertCategory" parameterType="com.hit.model.category.Category" useGeneratedKeys="true"
+    <insert id="insertCategory" parameterType="com.mapago.model.category.Category" useGeneratedKeys="true"
             keyProperty="categoryId">
         INSERT INTO TB_CATEGORY (CATEGORY_NM, DISP_ORD, ICON_IMG, LEFT_YN, TOP_YN, CRE_ID, UPD_ID)
         VALUES(
@@ -40,7 +40,7 @@
         )
     </insert>
 
-    <update id="updateCategory" parameterType="com.hit.model.category.Category" useGeneratedKeys="true"
+    <update id="updateCategory" parameterType="com.mapago.model.category.Category" useGeneratedKeys="true"
             keyProperty="categoryId">
         UPDATE TB_CATEGORY
         SET
@@ -52,12 +52,12 @@
         WHERE CATEGORY_ID = #{categoryId}
     </update>
 
-    <delete id="deleteCategory" parameterType="com.hit.model.category.Category">
+    <delete id="deleteCategory" parameterType="com.mapago.model.category.Category">
         DELETE FROM TB_CATEGORY
         WHERE CATEGORY_ID = #{categoryId}
     </delete>
 
-    <update id="sortCategory" parameterType="com.hit.model.category.Category" useGeneratedKeys="true"
+    <update id="sortCategory" parameterType="com.mapago.model.category.Category" useGeneratedKeys="true"
             keyProperty="categoryId">
         UPDATE TB_CATEGORY
         SET
@@ -66,7 +66,7 @@
         WHERE CATEGORY_ID = #{categoryId}
     </update>
 
-    <resultMap id="CategoryWithTypeResultMap" type="com.hit.model.category.Category">
+    <resultMap id="CategoryWithTypeResultMap" type="com.mapago.model.category.Category">
         <id property="categoryId" column="category_id"/>
         <result property="categoryNm" column="category_nm"/>
         <result property="dispOrd" column="disp_ord"/>
@@ -74,7 +74,7 @@
         <result property="leftYn" column="left_yn"/>
         <result property="topYn" column="top_yn"/>
         <result property="route" column="route"/>
-        <collection property="typeList" ofType="com.hit.model.type.Type" notNullColumn="type_id">
+        <collection property="typeList" ofType="com.mapago.model.type.Type" notNullColumn="type_id">
             <id property="typeId" column="type_id"/>
             <result property="typeNm" column="type_nm"/>
             <result property="dispOrd" column="type_disp_ord"/>

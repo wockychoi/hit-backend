@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.dashboard.DashboardMapper">
+<mapper namespace="com.mapago.mapper.dashboard.DashboardMapper">
 
-    <select id="getTopLikeList" resultType="com.hit.model.dashboard.Dashboard">
+    <select id="getTopLikeList" resultType="com.mapago.model.dashboard.Dashboard">
         SELECT
         SHOP_ID,
         SHOP_NM,
@@ -42,7 +42,7 @@
         LIMIT 100
     </select>
 
-    <select id="getTopViewList" resultType="com.hit.model.dashboard.Dashboard">
+    <select id="getTopViewList" resultType="com.mapago.model.dashboard.Dashboard">
         SELECT
         SHOP_ID,
         SHOP_NM,
@@ -80,7 +80,7 @@
     </select>
 
 
-    <select id="getTopUserLoginList" resultType="com.hit.model.dashboard.Dashboard">
+    <select id="getTopUserLoginList" resultType="com.mapago.model.dashboard.Dashboard">
         SELECT
         @row_number := @row_number + 1 AS seq, -- 순번
         log_type,
@@ -102,7 +102,7 @@
         LIMIT 100
     </select>
 
-    <select id="getTopLogList" resultType="com.hit.model.dashboard.Dashboard">
+    <select id="getTopLogList" resultType="com.mapago.model.dashboard.Dashboard">
         SELECT
         @row_number := @row_number + 1 AS seq, -- 순번
         log_type,
@@ -126,7 +126,7 @@
         LIMIT 100
     </select>
 
-    <select id="getTotalLoginUser" resultType="com.hit.model.dashboard.Dashboard">
+    <select id="getTotalLoginUser" resultType="com.mapago.model.dashboard.Dashboard">
         SELECT
         DATE_FORMAT(cre_dt, '%Y-%m') AS month, -- 월별
         COUNT(*) AS log_count -- 로그인 수를 세기
@@ -141,7 +141,7 @@
         month ASC
     </select>
 
-    <select id="getRgstShop" resultType="com.hit.model.dashboard.Dashboard">
+    <select id="getRgstShop" resultType="com.mapago.model.dashboard.Dashboard">
         select
         A.SHOP_ID,
         A.SHOP_NM,
@@ -178,7 +178,7 @@
         limit 100
     </select>
 
-    <select id="getTypePercentage" resultType="com.hit.model.dashboard.Dashboard">
+    <select id="getTypePercentage" resultType="com.mapago.model.dashboard.Dashboard">
         SELECT
         log_type,
         COUNT(*) AS log_count,

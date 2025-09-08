@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.msg.MsgMapper">
+<mapper namespace="com.mapago.mapper.msg.MsgMapper">
 
-    <select id="findMsgList" resultType="com.hit.model.msg.Msg">
+    <select id="findMsgList" resultType="com.mapago.model.msg.Msg">
         SELECT
         A.MSG_ID,
         A.SENDER_ID,
@@ -29,7 +29,7 @@
         ORDER BY CRE_DT DESC
     </select>
 
-    <insert id="insertMsg" parameterType="com.hit.model.msg.Msg" useGeneratedKeys="true"
+    <insert id="insertMsg" parameterType="com.mapago.model.msg.Msg" useGeneratedKeys="true"
             keyProperty="msgId">
         INSERT INTO TB_MESSAGE (sender_id, receiver_id, subject, content,send_time, is_read,use_yn)
         VALUES(
@@ -43,7 +43,7 @@
         )
     </insert>
 
-    <delete id="deleteMsg" parameterType="com.hit.model.msg.Msg">
+    <delete id="deleteMsg" parameterType="com.mapago.model.msg.Msg">
         UPDATE TB_MESSAGE
         SET USE_YN = #{useYn}
         WHERE MSG_ID = #{msgId}

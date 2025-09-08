@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.portal.MainMapper">
+<mapper namespace="com.mapago.mapper.portal.MainMapper">
 
-    <select id="findCategoryList" resultType="com.hit.model.category.Category">
+    <select id="findCategoryList" resultType="com.mapago.model.category.Category">
         SELECT
         A.CATEGORY_ID,
         A.CATEGORY_NM,

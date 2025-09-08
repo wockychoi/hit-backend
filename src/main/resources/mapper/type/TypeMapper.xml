@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.type.TypeMapper">
+<mapper namespace="com.mapago.mapper.type.TypeMapper">
 
-    <select id="findTypeList" resultType="com.hit.model.type.Type">
+    <select id="findTypeList" resultType="com.mapago.model.type.Type">
         SELECT
         TYPE_ID,
         TYPE_NM,
@@ -29,32 +29,32 @@
         ORDER BY DISP_ORD
     </select>
 
-    <resultMap id="ShopResultMap" type="com.hit.model.shop.Shop">
+    <resultMap id="ShopResultMap" type="com.mapago.model.shop.Shop">
         <id property="shopId" column="shop_id"/>
         <result property="shopNm" column="shop_nm"/>
         <result property="shopTitle" column="shop_title"/>
     </resultMap>
 
-    <resultMap id="TypeDetailShopResultMap" type="com.hit.model.type.TypeDetailShop">
+    <resultMap id="TypeDetailShopResultMap" type="com.mapago.model.type.TypeDetailShop">
         <id property="typeDetailShopId" column="type_detail_shop_id"/>
         <result property="typeDetailId" column="shop_type_detail_id"/>
         <result property="shopId" column="shop_id"/>
         <result property="dispOrd" column="shop_disp_ord"/>
 
-        <association property="shop" javaType="com.hit.model.shop.Shop" resultMap="ShopResultMap"/>
+        <association property="shop" javaType="com.mapago.model.shop.Shop" resultMap="ShopResultMap"/>
     </resultMap>
 
-    <resultMap id="TypeDetailResultMap" type="com.hit.model.type.TypeDetail">
+    <resultMap id="TypeDetailResultMap" type="com.mapago.model.type.TypeDetail">
         <id property="typeDetailId" column="type_detail_id"/>
         <result property="typeDetailNm" column="type_detail_nm"/>
         <result property="typeId" column="detail_type_id"/>
         <result property="dispOrd" column="detail_disp_ord"/>
 
-        <collection property="typeDetailShopList" ofType="com.hit.model.type.TypeDetailShop"
+        <collection property="typeDetailShopList" ofType="com.mapago.model.type.TypeDetailShop"
                     resultMap="TypeDetailShopResultMap"/>
     </resultMap>
 
-    <resultMap id="TypeResultMap" type="com.hit.model.type.Type">
+    <resultMap id="TypeResultMap" type="com.mapago.model.type.Type">
         <id property="typeId" column="type_id"/>
         <result property="typeNm" column="type_nm"/>
         <result property="categoryId" column="category_id"/>
@@ -65,12 +65,12 @@
         <result property="typeOrdMethodNm" column="type_ord_method_nm"/>
         <result property="creDt" column="cre_dt"/>
 
-        <association property="category" javaType="com.hit.model.category.Category">
+        <association property="category" javaType="com.mapago.model.category.Category">
             <id property="categoryId" column="category_id"/>
             <result property="categoryNm" column="category_nm"/>
         </association>
 
-        <collection property="typeDetailList" ofType="com.hit.model.type.TypeDetail"
+        <collection property="typeDetailList" ofType="com.mapago.model.type.TypeDetail"
                     resultMap="TypeDetailResultMap"/>
     </resultMap>
 
@@ -110,7 +110,7 @@
         ORDER BY T.DISP_ORD
     </select>
 
-    <insert id="insertType" parameterType="com.hit.model.type.Type" useGeneratedKeys="true" keyProperty="typeId">
+    <insert id="insertType" parameterType="com.mapago.model.type.Type" useGeneratedKeys="true" keyProperty="typeId">
         INSERT INTO TB_TYPE (type_nm, category_id, disp_ord, cre_id, upd_id, type_form, type_ord_method)
         VALUES (
         #{typeNm},
@@ -123,7 +123,7 @@
         )
     </insert>
 
-    <update id="updateType" parameterType="com.hit.model.type.Type" useGeneratedKeys="true" keyProperty="typeId">
+    <update id="updateType" parameterType="com.mapago.model.type.Type" useGeneratedKeys="true" keyProperty="typeId">
         UPDATE TB_TYPE A
         JOIN (
         SELECT COALESCE(MAX(B.DISP_ORD), 0) + 1 AS NEW_DISP_ORD
@@ -144,12 +144,12 @@
         WHERE A.TYPE_ID = #{typeId}
     </update>
 
-    <delete id="deleteType" parameterType="com.hit.model.type.Type">
+    <delete id="deleteType" parameterType="com.mapago.model.type.Type">
         DELETE FROM TB_TYPE
         WHERE TYPE_ID = #{typeId}
     </delete>
 
-    <update id="sortType" parameterType="com.hit.model.type.Type" useGeneratedKeys="true"
+    <update id="sortType" parameterType="com.mapago.model.type.Type" useGeneratedKeys="true"
             keyProperty="typeId">
         UPDATE TB_TYPE
         SET

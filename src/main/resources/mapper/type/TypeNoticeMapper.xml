@@ -3,20 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.type.TypeNoticeMapper">
+<mapper namespace="com.mapago.mapper.type.TypeNoticeMapper">
 
-    <resultMap id="TypeResultMap" type="com.hit.model.type.Type">
+    <resultMap id="TypeResultMap" type="com.mapago.model.type.Type">
         <id property="typeId" column="type_id"/>
         <result property="typeNm" column="type_nm"/>
-        <association property="category" javaType="com.hit.model.category.Category" resultMap="CategoryResultMap"/>
+        <association property="category" javaType="com.mapago.model.category.Category" resultMap="CategoryResultMap"/>
     </resultMap>
 
-    <resultMap id="CategoryResultMap" type="com.hit.model.category.Category">
+    <resultMap id="CategoryResultMap" type="com.mapago.model.category.Category">
         <id property="categoryId" column="category_id"/>
         <result property="categoryNm" column="category_nm"/>
     </resultMap>
 
-    <resultMap id="TypeNoticeResultMap" type="com.hit.model.type.TypeNotice">
+    <resultMap id="TypeNoticeResultMap" type="com.mapago.model.type.TypeNotice">
         <id property="typeNoticeId" column="type_notice_id"/>
         <result property="typeId" column="type_id"/>
         <result property="noticeType" column="notice_type"/>
@@ -32,9 +32,9 @@
         <result property="updDt" column="upd_dt"/>
         <result property="updId" column="upd_id"/>
         <!--        <result property="commentIdList" column="COMMENT_ID_LIST"/>-->
-        <association property="type" javaType="com.hit.model.type.Type" resultMap="TypeResultMap"/>
-        <collection property="fileList" ofType="com.hit.model.file.File" column="file_id_list"
-                    select="com.hit.mapper.file.FileMapper.selectFilesByFileIds"/>
+        <association property="type" javaType="com.mapago.model.type.Type" resultMap="TypeResultMap"/>
+        <collection property="fileList" ofType="com.mapago.model.file.File" column="file_id_list"
+                    select="com.mapago.mapper.file.FileMapper.selectFilesByFileIds"/>
     </resultMap>
 
     <select id="findTypeNoticeList" resultMap="TypeNoticeResultMap">
@@ -109,7 +109,7 @@
         AND C.TYPE_NOTICE_ID = #{typeNoticeId}
     </select>
 
-    <insert id="insertTypeNotice" parameterType="com.hit.model.type.TypeNotice" useGeneratedKeys="true"
+    <insert id="insertTypeNotice" parameterType="com.mapago.model.type.TypeNotice" useGeneratedKeys="true"
             keyProperty="typeNoticeId">
         INSERT INTO TB_TYPE_NOTICE (TYPE_ID, NOTICE_TYPE, TITLE, CONTENT, CRE_ID, UPD_ID)
         VALUES (
@@ -122,7 +122,7 @@
         )
     </insert>
 
-    <update id="updateTypeNotice" parameterType="com.hit.model.type.TypeNotice" useGeneratedKeys="true"
+    <update id="updateTypeNotice" parameterType="com.mapago.model.type.TypeNotice" useGeneratedKeys="true"
             keyProperty="typeNoticeId">
         UPDATE TB_TYPE_NOTICE A
         SET
@@ -133,7 +133,7 @@
         WHERE A.TYPE_NOTICE_ID = #{typeNoticeId}
     </update>
 
-    <update id="deleteTypeNotice" parameterType="com.hit.model.type.TypeNotice">
+    <update id="deleteTypeNotice" parameterType="com.mapago.model.type.TypeNotice">
         UPDATE TB_TYPE_NOTICE A
         SET
         A.USE_YN = 'N',

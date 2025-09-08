@@ -15,9 +15,12 @@ spring:
           ssl:
             trust: smtp.gmail.com
   datasource:
-    url: jdbc:mysql://blog-database.cz0k82k0et9c.ap-northeast-2.rds.amazonaws.com:3306/blog_database?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: admin
-    password: wockyblog1!
+    #url: jdbc:mysql://blog-database.cz0k82k0et9c.ap-northeast-2.rds.amazonaws.com:3306/blog_database?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    #username: admin
+    #password: wockyblog1!
+    url: jdbc:mysql://localhost:3306/hit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 logging:

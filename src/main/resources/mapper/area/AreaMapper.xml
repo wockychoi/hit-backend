@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hit.mapper.area.AreaMapper">
+<mapper namespace="com.mapago.mapper.area.AreaMapper">
 
-    <select id="findAreaProvinceList" parameterType="com.hit.model.area.AreaProvince"
-            resultType="com.hit.model.area.AreaProvince">
+    <select id="findAreaProvinceList" parameterType="com.mapago.model.area.AreaProvince"
+            resultType="com.mapago.model.area.AreaProvince">
         SELECT
         A.AREA_PROVINCE_ID,
         A.AREA_PROVINCE_NM
@@ -14,8 +14,8 @@
         ORDER BY A.AREA_PROVINCE_ID
     </select>
 
-    <select id="findAreaCityList" parameterType="com.hit.model.area.AreaCity"
-            resultType="com.hit.model.area.AreaCity">
+    <select id="findAreaCityList" parameterType="com.mapago.model.area.AreaCity"
+            resultType="com.mapago.model.area.AreaCity">
         SELECT
         A.AREA_CITY_ID,
         A.AREA_CITY_NM,
@@ -25,8 +25,8 @@
         ORDER BY A.AREA_CITY_NM
     </select>
 
-    <select id="findAreaStreetList" parameterType="com.hit.model.area.AreaStreet"
-            resultType="com.hit.model.area.AreaStreet">
+    <select id="findAreaStreetList" parameterType="com.mapago.model.area.AreaStreet"
+            resultType="com.mapago.model.area.AreaStreet">
         SELECT
         A.AREA_STREET_ID,
         A.AREA_STREET_NM,
