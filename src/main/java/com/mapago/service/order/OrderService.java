@@ -1,89 +1,63 @@
 package com.mapago.service.order;
 
 import com.mapago.config.exception.CustomException;
-import com.mapago.mapper.user.UserMapper;
-import com.mapago.model.user.PostingLog;
-import com.mapago.model.user.User;
+import com.mapago.mapper.order.OrderMapper;
+import com.mapago.model.order.Order;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
 
     @Autowired
-    private UserMapper userMapper;
+    private OrderMapper orderMapper;
 
-    public static String getCurrentUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(
-                authentication.getName())) {
-            return "";
-        }
-        return authentication.getName();
+    /**
+     * 주문 목록 조회
+     */
+    public List<Order> getOrderList(Order order) throws Exception {
+        return orderMapper.getOrderList(order);
     }
 
-    public List<User> getUserList(User user) throws Exception {
-        return userMapper.getUserList(user);
+    /**
+     * 주문 단건 조회
+     */
+    public Order findById(Long orderSeq) {
+        return orderMapper.findById(orderSeq);
     }
 
-    public User findByUserId(String userId) {
-        return userMapper.findByUserId(userId);
-    }
-
-    public User findByNickname(String nickname) {
-        return userMapper.findByNickname(nickname);
-    }
-
+    /**
+     * 주문 등록
+     */
     @Transactional
-    public User updateUser(User user) throws Exception {
-        int result = userMapper.updateUser(user);
-        return Optional.ofNullable(user)
+    public Order insertOrder(Order order) throws Exception {
+        orderMapper.insertOrder(order);
+        return order;
+    }
+
+    /**
+     * 주문 수정
+     */
+    @Transactional
+    public Order updateOrder(Order order) throws Exception {
+        int result = orderMapper.updateOrder(order);
+        return Optional.ofNullable(order)
                 .filter(t -> result > 0)
-                .orElseThrow(() -> new CustomException("삭제할 사용자가 없습니다."));
+                .orElseThrow(() -> new CustomException("수정할 주문이 없습니다."));
     }
 
-    public User insertUser(User userRequest) throws Exception {
-        userMapper.insertUser(userRequest);
-        userMapper.insertUserRole(userRequest);
-        //userMapper.insertWallet(userRequest);
-        return userRequest;
-    }
-
-    public void insertUserRole(User userRequest) {
-        for (String roleName : userRequest.getRoles()) {
-            userRequest.setRoleName(roleName);
-            userMapper.insertUserRole(userRequest);
+    /**
+     * 주문 삭제
+     */
+    @Transactional
+    public void deleteOrder(Long orderSeq) throws Exception {
+        int result = orderMapper.deleteOrder(orderSeq);
+        if (result == 0) {
+            throw new CustomException("삭제할 주문이 없습니다.");
         }
-
-    }
-
-    public PostingLog insertPostingLog(PostingLog postingLog) throws Exception {
-        userMapper.insertPostingLog(postingLog);
-        userMapper.insertPointlog(postingLog);
-        return postingLog;
-    }
-
-    @Transactional
-    public User updatePointWallet(User user) throws Exception {
-        int result = userMapper.updatePointWallet(user);
-        return userMapper.findByUserId(user.getUserId());
-    }
-
-    @Transactional
-    public User savePostKey(User user) throws Exception {
-        int result = userMapper.savePostKey(user);
-        return userMapper.findByUserId(user.getUserId());
     }
 }

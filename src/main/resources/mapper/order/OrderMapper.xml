@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapago.mapper.order.OrderMapper">
+
+    <!-- 주문 목록 조회 -->
+    <select id="getOrderList" parameterType="com.mapago.model.order.Order" resultType="com.mapago.model.order.Order">
+        SELECT
+        order_seq AS orderSeq,
+        user_id AS userId,
+        shipping_date AS shippingDate,
+        courier,
+        tracking_no AS trackingNo,
+        order_date AS orderDate,
+        order_type AS orderType,
+        customer_name AS customerName,
+        orderer_name AS ordererName,
+        rec_person AS recPerson,
+        product_code AS productCode,
+        phone_number AS phoneNumber,
+        product_name AS productName,
+        payment_method AS paymentMethod,
+        postal_code AS postalCode,
+        quantity,
+        unit_price AS unitPrice,
+        amount,
+        shipping_fee AS shippingFee,
+        total_amount AS totalAmount,
+        delivery_message AS deliveryMessage,
+        admin_memo AS adminMemo,
+        delivery_address AS deliveryAddress,
+        created_at AS createdAt,
+        updated_at AS updatedAt
+        FROM hit.tb_orders
+        <where>
+            <if test="userId != null and userId != ''">
+                AND user_id = #{userId}
+            </if>
+            <if test="orderDate != null">
+                AND order_date = #{orderDate}
+            </if>
+        </where>
+        ORDER BY order_seq DESC
+    </select>
+
+    <!-- 단건 조회 -->
+    <select id="findById" parameterType="long" resultType="com.mapago.model.order.Order">
+        SELECT
+        order_seq AS orderSeq,
+        user_id AS userId,
+        shipping_date AS shippingDate,
+        courier,
+        tracking_no AS trackingNo,
+        order_date AS orderDate,
+        order_type AS orderType,
+        customer_name AS customerName,
+        orderer_name AS ordererName,
+        rec_person AS recPerson,
+        product_code AS productCode,
+        phone_number AS phoneNumber,
+        product_name AS productName,
+        payment_method AS paymentMethod,
+        postal_code AS postalCode,
+        quantity,
+        unit_price AS unitPrice,
+        amount,
+        shipping_fee AS shippingFee,
+        total_amount AS totalAmount,
+        delivery_message AS deliveryMessage,
+        admin_memo AS adminMemo,
+        delivery_address AS deliveryAddress,
+        created_at AS createdAt,
+        updated_at AS updatedAt
+        FROM hit.tb_orders
+        WHERE order_seq = #{orderSeq}
+    </select>
+
+    <!-- 주문 저장 -->
+    <insert id="insertOrder" parameterType="com.mapago.model.order.Order" useGeneratedKeys="true" keyProperty="orderSeq">
+        INSERT INTO hit.tb_orders (
+        user_id, shipping_date, courier, tracking_no, order_date, order_type,
+        customer_name, orderer_name, rec_person, product_code, phone_number,
+        product_name, payment_method, postal_code, quantity, unit_price, amount,
+        shipping_fee, total_amount, delivery_message, admin_memo, delivery_address
+        ) VALUES (
+        #{userId}, #{shippingDate}, #{courier}, #{trackingNo}, #{orderDate}, #{orderType},
+        #{customerName}, #{ordererName}, #{recPerson}, #{productCode}, #{phoneNumber},
+        #{productName}, #{paymentMethod}, #{postalCode}, #{quantity}, #{unitPrice}, #{amount},
+        #{shippingFee}, #{totalAmount}, #{deliveryMessage}, #{adminMemo}, #{deliveryAddress}
+        )
+    </insert>
+
+    <!-- 주문 수정 -->
+    <update id="updateOrder" parameterType="com.mapago.model.order.Order">
+        UPDATE hit.tb_orders
+        SET
+        shipping_date = #{shippingDate},
+        courier = #{courier},
+        tracking_no = #{trackingNo},
+        order_date = #{orderDate},
+        order_type = #{orderType},
+        customer_name = #{customerName},
+        orderer_name = #{ordererName},
+        rec_person = #{recPerson},
+        product_code = #{productCode},
+        phone_number = #{phoneNumber},
+        product_name = #{productName},
+        payment_method = #{paymentMethod},
+        postal_code = #{postalCode},
+        quantity = #{quantity},
+        unit_price = #{unitPrice},
+        amount = #{amount},
+        shipping_fee = #{shippingFee},
+        total_amount = #{totalAmount},
+        delivery_message = #{deliveryMessage},
+        admin_memo = #{adminMemo},
+        delivery_address = #{deliveryAddress},
+        updated_at = NOW()
+        WHERE order_seq = #{orderSeq}
+    </update>
+
+    <!-- 주문 삭제 -->
+    <delete id="deleteOrder" parameterType="long">
+        DELETE FROM hit.tb_orders WHERE order_seq = #{orderSeq}
+    </delete>
+
+</mapper>

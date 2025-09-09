@@ -74,6 +74,8 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers("/admin/api/user/savePostKey")
                         .permitAll()
+                        .requestMatchers("/admin/api/order/**")
+                        .permitAll()
                         .requestMatchers("/admin/api/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
 

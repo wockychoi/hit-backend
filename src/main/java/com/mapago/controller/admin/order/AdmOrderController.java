@@ -1,6 +1,6 @@
 package com.mapago.controller.admin.order;
 
-import com.mapago.model.user.User;
+import com.mapago.model.order.Order;
 import com.mapago.service.order.OrderService;
 import com.mapago.service.user.UserService;
 import com.mapago.util.AesUtil;
@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,24 +32,39 @@ public class AdmOrderController {
 
 
     @GetMapping("/list")
-    public ResponseEntity<?> list(User user) throws Exception {
-        return ResponseEntity.ok(orderService.getUserList(user));
+    public ResponseEntity<?> list(Order order) throws Exception {
+        return ResponseEntity.ok(orderService.getOrderList(order));
     }
 
-    @PostMapping("/modify")
-    public ResponseEntity<?> modify(@RequestBody User user) throws Exception {
-        return ResponseEntity.ok(orderService.updateUser(user));
+
+    // 여러 주문 수정
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@RequestBody List<Order> orders) throws Exception {
+        for (Order order : orders) {
+            orderService.updateOrder(order);
+        }
+        return ResponseEntity.ok("✅ 선택 주문이 수정되었습니다.");
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) throws Exception {
-        return ResponseEntity.ok(orderService.insertUser(user));
+    // 여러 주문 저장
+    @PostMapping("/save")
+    public ResponseEntity<?> save(@RequestBody List<Order> orders) throws Exception {
+        for (Order order : orders) {
+            orderService.insertOrder(order);
+        }
+        return ResponseEntity.ok("✅ 선택 주문이 저장되었습니다.");
     }
 
-    @GetMapping("/duplicate")
-    public ResponseEntity<?> duplicate(@RequestParam String userId) throws Exception {
-        return ResponseEntity.ok(orderService.findByUserId(userId));
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(@RequestBody List<Long> orderSeqList) throws Exception {
+        for (Long orderSeq : orderSeqList) {
+            orderService.deleteOrder(orderSeq);
+        }
+        return ResponseEntity.ok("✅ 선택 주문이 삭제되었습니다.");
     }
+
+
+
 
 
 }
