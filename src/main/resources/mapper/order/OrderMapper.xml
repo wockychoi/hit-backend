@@ -35,8 +35,8 @@
         updated_at AS updatedAt
         FROM hit.tb_orders
         <where>
-            <if test="userId != null and userId != ''">
-                AND user_id = #{userId}
+            <if test="loginUserId != null and loginUserId != ''">
+                AND user_id = #{loginUserId}
             </if>
             <if test="orderDate != null">
                 AND order_date = #{orderDate}
@@ -117,6 +117,7 @@
         delivery_message = #{deliveryMessage},
         admin_memo = #{adminMemo},
         delivery_address = #{deliveryAddress},
+        user_id = #{userId},
         updated_at = NOW()
         WHERE order_seq = #{orderSeq}
     </update>

@@ -35,4 +35,5 @@ public class Order extends Audit {
     private String deliveryMessage; // 배송메세지
     private String adminMemo;       // 관리자 메모
     private String deliveryAddress; // 배송지
+    private String loginUserId; //로그인한 사용자 ID
 }
